@@ -1,12 +1,14 @@
 library(targets)
 source("config.R")
-lapply(list.files("R", full.names = TRUE), source)
+tar_source()
 
 tar_option_set(
   packages =
     c("targets",
       "data.table",
-      "lubridate"
+      "lubridate",
+      "haven",
+      "survey"
     )
 )
 

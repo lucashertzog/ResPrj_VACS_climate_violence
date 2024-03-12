@@ -6,6 +6,8 @@ load_spei <- function(
   setnames(spei, tolower(names(spei)))
   foo <- spei[, .(uid, name_0, name_1, engtype_1, name_2, engtype_2, name_3, engtype_3, name_4, engtype_4, value, date)]
   
+  foo <- foo[name_0 != "Tanzania"]
+  
   setnames(foo, 
            old = c("uid", "name_0", 
                    "name_1", "engtype_1", 
@@ -29,7 +31,6 @@ load_spei <- function(
     "Côte d'Ivoire" = as.Date("2018-06-01"),
     "El Salvador" = as.Date("2017-01-01"), # check
     "Honduras" = as.Date("2017-01-01"), # check
-    "Tanzania" = as.Date("2008-01-01"), # check1
     "Kenya" = as.Date("2018-12-01"),
     "Lesotho" = as.Date("2018-06-01"),
     "Moldova" = as.Date("2018-10-01"),
@@ -84,6 +85,9 @@ load_spei <- function(
   # [1] "Colombia" "Honduras" "Kenya" 
   ## honduras and colombia - islands NA
   ## kenya coastal close to mombassa NA
+  nga <- spei_out[spei_out$adm_0 == "Nigeria"]
+  paste(unique(nga$adm_2), collapse = ", ")
+  
   
   return(spei_out)
 }
