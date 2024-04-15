@@ -13,15 +13,15 @@ load_vacs <- function(
   )
   
   country_names <- setNames(
-    c("Cambodia", "Colombia", "Côte d'Ivoire", "El Salvador", "Honduras", "Kenya", "Lesotho", "Malawi",
-      "Moldova", "Mozambique", "Namibia", "Nigeria", "Zambia", "Zimbabwe"),
-    c("cambodia", "colombia", "cote_divoire", "el_salvador", "honduras", "kenya", "lesotho", "malawi",
-      "moldova", "mozambique", "namibia", "nigeria", "zambia", "zimbabwe")
+    c("Cambodia", "Colombia", "Côte d'Ivoire", "El Salvador", "Kenya", "Lesotho", "Malawi",
+      "Moldova", "Mozambique", "Namibia", "Nigeria", "Uganda", "Zambia", "Zimbabwe"),
+    c("cambodia", "colombia", "cote_divoire", "el_salvador", "kenya", "lesotho", "malawi",
+      "moldova", "mozambique", "namibia", "nigeria", "uganda", "zambia", "zimbabwe")
   )
   
-  foo[, country := country_names[country]]
+  foo[, adm0 := country_names[adm0]]
   
-  vacs <- setnames(foo, "country", "adm_0")
+  
   
   return(vacs)
 }

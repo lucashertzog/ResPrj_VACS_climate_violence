@@ -6,6 +6,6 @@ tar_visnetwork(targets_only = T)
 tar_make()
 
 # useful
-tar_invalidate()
+tar_invalidate(dat_vacs)
 tar_objects()
 tar_load_everything()
