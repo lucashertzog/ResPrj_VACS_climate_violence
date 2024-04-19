@@ -1,11 +1,11 @@
 load_vacs <- function(
     dir
 ){
-  foo <- read_dta(file_dat_vacs)
-  setDT(foo)
+  vacs <- read_dta(file_dat_vacs)
+  setDT(vacs)
   
-  foo[] <- lapply(
-    foo,
+  vacs[] <- lapply(
+    vacs,
     function(x){
       attr(x, "label") <- NULL
       return(x)
@@ -19,9 +19,18 @@ load_vacs <- function(
       "moldova", "mozambique", "namibia", "nigeria", "uganda", "zambia", "zimbabwe")
   )
   
-  foo[, adm0 := country_names[adm0]]
+  vacs[, adm0 := country_names[adm0]]
   
+  foo <- vacs
+  setDT(foo)
   
+  foo$viol_sex <- as.factor(foo$viol_sex)
+  foo$viol_ipv <- as.factor(foo$viol_ipv)
+  foo$ever_viol_ipv <- as.factor(foo$ever_viol_ipv)
+  foo$marital <- as.factor(foo$marital)
+  foo$edu_enrol <- as.factor(foo$edu_enrol)
+  foo$pvt <- as.factor(foo$pvt)
+  foo$ever_viol_sex <- as.factor(foo$ever_viol_sex)
   
-  return(vacs)
+  return(foo)
 }
