@@ -3,7 +3,9 @@ load_packages <- function(do_it = T){
             "data.table",
             "lubridate",
             "haven",
-            "survey"
+            "survey",
+            "mice",
+            "gtsummary"
             )
   ipak <- function(pkg){
     new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]

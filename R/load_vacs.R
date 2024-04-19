@@ -21,16 +21,15 @@ load_vacs <- function(
   
   vacs[, adm0 := country_names[adm0]]
   
-  foo <- vacs
-  setDT(foo)
+  setDT(vacs)
   
-  foo$viol_sex <- as.factor(foo$viol_sex)
-  foo$viol_ipv <- as.factor(foo$viol_ipv)
-  foo$ever_viol_ipv <- as.factor(foo$ever_viol_ipv)
-  foo$marital <- as.factor(foo$marital)
-  foo$edu_enrol <- as.factor(foo$edu_enrol)
-  foo$pvt <- as.factor(foo$pvt)
-  foo$ever_viol_sex <- as.factor(foo$ever_viol_sex)
+  vacs$viol_sex <- as.factor(vacs$viol_sex)
+  vacs$viol_ipv <- as.factor(vacs$viol_ipv)
+  vacs$ever_viol_ipv <- as.factor(vacs$ever_viol_ipv)
+  vacs$marital <- as.factor(vacs$marital)
+  vacs$edu_enrol <- as.factor(vacs$edu_enrol)
+  vacs$pvt <- as.factor(vacs$pvt)
+  vacs$ever_viol_sex <- as.factor(vacs$ever_viol_sex)
   
-  return(foo)
+  return(vacs)
 }

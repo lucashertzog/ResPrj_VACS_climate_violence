@@ -8,7 +8,9 @@ tar_option_set(
       "data.table",
       "lubridate",
       "haven",
-      "survey"
+      "survey",
+      "mice",
+      "gtsummary"
     )
 )
 
@@ -35,6 +37,21 @@ list(
         )
       )
     )
-  
-  
-)
+  ,
+  ### IMPUTATION ####
+  tar_target(
+    imp,
+    do_impute(
+      dat_vacs
+      )
+  )
+  ,
+  ### FIGURES AND TABLES ####
+  tar_target(
+    tab1,
+    tab_desc(
+      dat_vacs
+      )
+    )
+  )
+
