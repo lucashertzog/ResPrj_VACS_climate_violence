@@ -10,7 +10,8 @@ tar_option_set(
       "haven",
       "survey",
       "mice",
-      "gtsummary"
+      "gtsummary",
+      "lubridate"
     )
 )
 
@@ -37,6 +38,14 @@ list(
         )
       )
     )
+  ,
+  ### PREP ####
+  tar_target(
+    prep_spei,
+    do_prep_spei(
+      dat_spei
+    )
+  )
   ,
   ### IMPUTATION ####
   tar_target(
