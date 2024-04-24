@@ -41,15 +41,15 @@ list(
   ,
   ### PREP ####
   tar_target(
-    prep_spei,
-    do_prep_spei(
+    dat_drought,
+    do_drought(
       dat_spei
     )
   )
   ,
   ### IMPUTATION ####
   tar_target(
-    imp,
+    dat_imp,
     do_impute(
       dat_vacs
       )
@@ -57,7 +57,7 @@ list(
   ,
   ### FIGURES AND TABLES ####
   tar_target(
-    tab1,
+    out_tab1,
     tab_desc(
       dat_vacs
       )
