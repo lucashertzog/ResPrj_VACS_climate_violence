@@ -47,20 +47,37 @@ list(
     )
   )
   ,
-  ### IMPUTATION ####
+  ### MERGE ####
   tar_target(
-    dat_imp,
-    do_impute(
-      dat_vacs
-      )
+    dat_mrg,
+    do_mrg(
+      dat_vacs,
+      dat_drought
+    )
   )
   ,
-  ### FIGURES AND TABLES ####
+  ### MODEL ####
   tar_target(
-    out_tab1,
-    tab_desc(
-      dat_vacs
-      )
+    calc_model1,
+    do_model1(
+      dat_mrg
     )
+  )
+  # ,
+  # ### IMPUTATION ####
+  # tar_target(
+  #   dat_imp,
+  #   do_impute(
+  #     dat_vacs
+  #     )
+  # )
+  # ,
+  # ### FIGURES AND TABLES ####
+  # tar_target(
+  #   out_tab1,
+  #   tab_desc(
+  #     dat_vacs
+  #     )
+  #   )
   )
 

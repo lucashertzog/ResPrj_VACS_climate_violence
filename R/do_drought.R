@@ -158,6 +158,17 @@ spei[, recent_24_start := date %m-% months(23)]
 spei[, recent_long_period := as.integer(date >= recent_24_start & consecutive_dry >= 12)]
 spei[, constant_and_recent_long := as.integer(constant_drought_extreme & recent_long_period)]
 
+
+# we dont need all the dates, as we are creating dichotomous
+spei <- spei[, .(
+  zero_to_moderate = as.integer(any(zero_to_moderate == 1)),
+  very_dry_drought_extreme = as.integer(any(very_dry_drought_extreme == 1)),
+  recent_long_period = as.integer(any(recent_long_period == 1)),
+  constant_drought_extreme = as.integer(any(constant_drought_extreme == 1)),
+  constant_and_recent_long = as.integer(any(constant_and_recent_long == 1))
+), by = .(adm0, adm1, adm2)]
+
+
 # lets check
 # foo <- spei[, .(
 #   num_zero_to_moderate = sum(zero_to_moderate, na.rm = TRUE),
@@ -167,20 +178,5 @@ spei[, constant_and_recent_long := as.integer(constant_drought_extreme & recent_
 #   num_constant_and_recent_long = sum(constant_and_recent_long, na.rm = TRUE)
 # )]
 
-frequencies <- c(
-  summary_drought_patterns$num_zero_to_moderate,
-  summary_drought_patterns$num_very_dry,
-  summary_drought_patterns$num_recent_long_period,
-  summary_drought_patterns$num_constant,
-  summary_drought_patterns$num_constant_and_recent_long
-)
-
-# Create names for the bars
-patterns <- c("Zero to Moderate", "Very Dry", "Recent Long Period", "Constant", "Constant and Recent Long")
-
-# Create the bar plot
-barplot(frequencies, names.arg = patterns,
-        main = "Distribution of Drought Patterns",
-        xlab = "Drought Pattern", ylab = "Frequency", las = 1)
 return(spei)
 }

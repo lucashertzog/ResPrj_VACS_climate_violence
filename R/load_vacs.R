@@ -31,5 +31,7 @@ load_vacs <- function(
   vacs$pvt <- as.factor(vacs$pvt)
   vacs$ever_viol_sex <- as.factor(vacs$ever_viol_sex)
   
+  vacs[adm0 %in% c("Côte d'Ivoire", "Lesotho", "Moldova", "Mozambique"), adm2 := NA]
+  
   return(vacs)
 }
