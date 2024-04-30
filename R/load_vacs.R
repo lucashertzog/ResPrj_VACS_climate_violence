@@ -24,14 +24,14 @@ load_vacs <- function(
   setDT(vacs)
   
   vacs$viol_sex <- as.factor(vacs$viol_sex)
-  vacs$viol_ipv <- as.factor(vacs$viol_ipv)
-  vacs$ever_viol_ipv <- as.factor(vacs$ever_viol_ipv)
   vacs$marital <- as.factor(vacs$marital)
   vacs$edu_enrol <- as.factor(vacs$edu_enrol)
   vacs$pvt <- as.factor(vacs$pvt)
   vacs$ever_viol_sex <- as.factor(vacs$ever_viol_sex)
   
   vacs[adm0 %in% c("Côte d'Ivoire", "Lesotho", "Moldova", "Mozambique"), adm2 := NA]
+  
+  vacs <- subset(vacs, select = -c(viol_ipv, ever_viol_ipv))
   
   return(vacs)
 }

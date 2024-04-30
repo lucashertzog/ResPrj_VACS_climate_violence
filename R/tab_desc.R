@@ -24,9 +24,7 @@ tab_desc <- function(
   
   outcome_var <- c(
     "ever_viol_sex",
-    "viol_sex",
-    "ever_viol_ipv",
-    "viol_ipv"
+    "viol_sex"
   )
   
   vars_to_recode <- c(control_var, outcome_var)
@@ -64,8 +62,6 @@ tab_desc <- function(
                    pvt ~ "Household is impoverished",
                    ever_viol_sex ~ "Sexual violence (lifetime)",
                    viol_sex ~ "Sexual violence (previous 12 months)",
-                   ever_viol_ipv ~ "Intimate Partner Violence (lifetime)",
-                   viol_ipv ~ "Intimate Partner Violence (previous 12 months)",
                    adm0 ~ "Sample by country"
       ),
       missing_text = "Missing"

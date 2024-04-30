@@ -11,7 +11,8 @@ tar_option_set(
       "survey",
       "mice",
       "gtsummary",
-      "lubridate"
+      "lubridate",
+      "missForest"
     )
 )
 
@@ -41,9 +42,16 @@ list(
   ,
   ### PREP ####
   tar_target(
-    dat_drought,
-    do_drought(
+    calc_drought,
+    do_calc_drought(
       dat_spei
+    )
+  )
+  ,
+  tar_target(
+    agg_drought,
+    do_agg_drought(
+      calc_drought
     )
   )
   ,
@@ -52,25 +60,25 @@ list(
     dat_mrg,
     do_mrg(
       dat_vacs,
-      dat_drought
+      agg_drought
     )
+  )
+  ,
+  ### IMPUTATION ####
+  tar_target(
+    dat_imp,
+    do_impute(
+      dat_mrg
+      )
   )
   ,
   ### MODEL ####
   tar_target(
     calc_model1,
     do_model1(
-      dat_mrg
+      dat_imp
     )
   )
-  # ,
-  # ### IMPUTATION ####
-  # tar_target(
-  #   dat_imp,
-  #   do_impute(
-  #     dat_vacs
-  #     )
-  # )
   # ,
   # ### FIGURES AND TABLES ####
   # tar_target(

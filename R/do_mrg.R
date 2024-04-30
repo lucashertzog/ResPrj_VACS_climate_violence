@@ -20,7 +20,7 @@ v <- dat_vacs[, c(
   "adm0", "adm1", "adm2",
   "strata", "cluster", "weight",
   "age", "marital", "edu_enrol", "pvt",
-  "viol_sex", "viol_ipv"
+  "viol_sex", "ever_viol_sex"
 )]
 
 setDT(d)

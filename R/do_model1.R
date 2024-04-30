@@ -1,18 +1,18 @@
 #tar_load(dat_mrg)
 
 do_model1 <- function(
-    dat_mrg
+    dat_imp
 ){
 
 control_var <- c(
-  "age",
-  "edu_enrol",
+  "age.imputed",
+  "edu_enrol.imputed",
   "pvt",
-  "marital"
+  "marital.imputed"
 )
 
 outcome_var <- c(
-  "viol_sex"
+  "viol_sex.imputed"
 )
 
 pred_var <- c(
@@ -24,16 +24,18 @@ pred_var <- c(
 )
 
 
-psu_counts <- dat_mrg[, .(n_psu = uniqueN(cluster)), by = strata]
+# age filter
+# dat_mrg <- dat_mrg[dat_mrg$age >= 13 & dat_mrg$age <= 24, ]
 
+psu_counts <- dat_imp[, .(n_psu = uniqueN(cluster)), by = strata]
 valid_strata <- psu_counts[n_psu > 1, strata]
-
-dat_vacs_filtered <- dat_mrg[strata %in% valid_strata]
+invalid_strata <- psu_counts[n_psu == 1, strata]
+dat_vacs_filtered <- dat_imp[strata %in% valid_strata]
 
 # Correct recoding of data, ensuring 0s are handled if they're supposed to be present
-dat_vacs_filtered$viol_sex <- ifelse(dat_vacs_filtered$viol_sex == 98, NA, as.integer(dat_vacs_filtered$viol_sex == 1))
-dat_vacs_filtered$viol_ipv <- ifelse(dat_vacs_filtered$viol_ipv == 98, NA, as.integer(dat_vacs_filtered$viol_ipv == 1))
+# dat_vacs_filtered$viol_sex <- ifelse(dat_vacs_filtered$viol_sex == 98, NA, as.integer(dat_vacs_filtered$viol_sex == 1))
 
+dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == 98, NA, as.integer(dat_vacs_filtered$viol_sex.imputed == 1))
 
 design <- survey::svydesign(
   id = ~ cluster,
@@ -45,7 +47,7 @@ design <- survey::svydesign(
 )
 
 # model <- svyglm(
-#   viol_sex ~ 
+#   viol_sex ~
 #     constant_and_recent_long,
 #   design = design,
 #   family = binomial(),
