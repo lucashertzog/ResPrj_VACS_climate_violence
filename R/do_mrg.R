@@ -6,13 +6,18 @@ d <- dat_drought[, c(
   "adm0", "adm1", "adm2",
   "zero_to_moderate",
   "very_dry_drought_extreme",
-  "recent_long_period",
-  "constant_drought_extreme",
-  "constant_and_recent_long")]
+  "constant_and_recent_long"
+  ,
+  "recent_long_period"
+  )]
 
-for (col in c("zero_to_moderate", "very_dry_drought_extreme",
-              "recent_long_period", "constant_drought_extreme",
-              "constant_and_recent_long")) {
+for (col in c("zero_to_moderate", 
+              "very_dry_drought_extreme",
+              "constant_and_recent_long"
+              ,
+              "recent_long_period"
+
+              )) {
   d[[col]] <- as.factor(d[[col]])
 }
 

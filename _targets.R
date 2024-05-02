@@ -12,7 +12,8 @@ tar_option_set(
       "mice",
       "gtsummary",
       "lubridate",
-      "missForest"
+      "missForest",
+      "ggplot2"
     )
 )
 
@@ -79,13 +80,46 @@ list(
       dat_imp
     )
   )
-  # ,
-  # ### FIGURES AND TABLES ####
-  # tar_target(
-  #   out_tab1,
-  #   tab_desc(
-  #     dat_vacs
-  #     )
-  #   )
+  ,
+  ### FIGURES AND TABLES ####
+  #### Table 1 ####
+  tar_target(
+    out_tab1,
+    tab_desc(
+      dat_vacs
+      )
+    )
+  ,
+  #### Table 2 ####
+  tar_target(
+    out_tab2,
+    tab_drought(
+      dat_mrg
+    )
+  )
+  ,
+  #### Table 3 ####
+  tar_target(
+    out_tab3,
+    tab_odds(
+      calc_model1
+    )
+  )
+  ,
+  #### Plot 1 ####
+  tar_target(
+    out_plot1,
+    plot_sex_viol(
+      dat_vacs
+    )
+  )
+  ,
+  #### Plot 2 ####
+  tar_target(
+    out_plot2,
+    plot_drought(
+      calc_drought
+    )
+  )
   )
 

@@ -18,9 +18,9 @@ outcome_var <- c(
 pred_var <- c(
   "zero_to_moderate",
   "very_dry_drought_extreme",
-  "recent_long_period",
-  "constant_drought_extreme",
   "constant_and_recent_long"
+  ,
+  "recent_long_period"
 )
 
 
@@ -45,15 +45,6 @@ design <- survey::svydesign(
   single = "centered",
   nest = TRUE
 )
-
-# model <- svyglm(
-#   viol_sex ~
-#     constant_and_recent_long,
-#   design = design,
-#   family = binomial(),
-#   data = dat_vacs_filtered
-# )
-
 
 # Create an empty list to store the results
 results_list <- list()

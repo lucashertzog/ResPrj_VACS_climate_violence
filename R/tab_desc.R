@@ -68,8 +68,8 @@ tab_desc <- function(
     ) %>%
     gtsummary::add_ci(include = all_categorical()) 
   
-  # gtsummary::as_flex_table(t) %>%
-  #   flextable::save_as_docx(path = file.path(figstabs, tab1))
+  gtsummary::as_flex_table(t) %>%
+     flextable::save_as_docx(path = file.path(figstabs, tab1))
   
   return(t)
 }

@@ -101,7 +101,7 @@ spei[, count_method_cycles := sum(count_drought_start, na.rm = TRUE),
 # from non to drought period
 spei[, sum_drought_start := shift(threshold, fill = FALSE) == FALSE & threshold == TRUE,
      by = .(adm0, ifelse(adm0 %in% adm1_countries, adm1, adm2))]
-# then we count the number of times a drought even began - n transitions from
+# then we count the number of times a drought event began - n transitions from
 # non-drought to drought
 spei[, sum_method_cycles := sum(sum_drought_start, na.rm = TRUE), 
      by = .(adm0, ifelse(adm0 %in% adm1_countries, adm1, adm2))]
@@ -145,8 +145,6 @@ percentiles <- spei[, .(
   intensity_threshold = quantile(standardised_intensity, 0.1, na.rm = TRUE),
   sum_cycles_threshold = quantile(sum_method_cycles, 0.9, na.rm = TRUE),
   count_cycles_threshold = quantile(count_method_cycles, 0.9, na.rm = TRUE)
-  # sum_cycles_threshold = quantile(sum_method_cycles_aggregated, 0.9, na.rm = TRUE),
-  # count_cycles_threshold = quantile(count_method_cycles_aggregated, 0.9, na.rm = TRUE)
 )]
 
 # dichotomised
@@ -155,8 +153,6 @@ spei[, `:=` (
   very_dry_drought_extreme = as.integer(standardised_intensity < percentiles$intensity_threshold),
   extreme_sum_cycles_extreme = as.integer(sum_method_cycles > percentiles$sum_cycles_threshold),
   extreme_count_cycles_extreme = as.integer(count_method_cycles > percentiles$count_cycles_threshold)
-  # extreme_sum_cycles_extreme = as.integer(sum_method_cycles_aggregated > percentiles$sum_cycles_threshold),
-  # extreme_count_cycles_extreme = as.integer(count_method_cycles_aggregated > percentiles$count_cycles_threshold)
 )]
 
 # summary
@@ -168,13 +164,11 @@ summary_extreme_conditions <- spei[, .(
 )]
 
 # categories for analysis
-spei[, zero_to_moderate := as.integer(!constant_drought_extreme & !very_dry_drought_extreme)]
+
 spei[, recent_24_start := date %m-% months(23)]
-#recent_24_spei <- spei[date >= recent_24_start & consecutive_dry >= 12]
 spei[, recent_long_period := as.integer(date >= recent_24_start & consecutive_dry >= 12)]
 spei[, constant_and_recent_long := as.integer(constant_drought_extreme & recent_long_period)]
-
-
+spei[, zero_to_moderate := as.integer(!(constant_drought_extreme | very_dry_drought_extreme | recent_long_period))]
 
 
 return(spei)
