@@ -13,7 +13,8 @@ tar_option_set(
       "gtsummary",
       "lubridate",
       "missForest",
-      "ggplot2"
+      "ggplot2",
+      "shadowtext"
     )
 )
 
@@ -42,6 +43,7 @@ list(
     )
   ,
   ### PREP ####
+  #### Calc Drought ####
   tar_target(
     calc_drought,
     do_calc_drought(
@@ -49,6 +51,7 @@ list(
     )
   )
   ,
+  #### Agg Drought ####
   tar_target(
     agg_drought,
     do_agg_drought(
@@ -119,6 +122,75 @@ list(
     out_plot2,
     plot_drought(
       calc_drought
+    )
+  )
+  ,
+  ### SENSITIVITY ANALYSIS ####
+  #### sens_spei ####
+  tar_target(
+    sens_dat_spei,
+    sens_load_spei(
+      file.path(
+        rootdir,
+        file_dat_spei
+      )
+    )
+  )
+  ,
+  #### Sens Calc Drought ####
+  tar_target(
+    sens_calc_drought,
+    sens_do_calc_drought(
+      sens_dat_spei
+    )
+  )
+  ,
+  #### Sens Agg Drought ####
+  tar_target(
+    sens_agg_drought,
+    sens_do_agg_drought(
+      sens_calc_drought
+    )
+  )
+  ,
+  #### Sens Merge ####
+  tar_target(
+    sens_dat_mrg,
+    sens_do_mrg(
+      dat_vacs,
+      sens_agg_drought
+    )
+  )
+  ,
+  #### Sens Imputation ####
+  tar_target(
+    sens_dat_imp,
+    sens_do_impute(
+      sens_dat_mrg
+    )
+  )
+  ,
+  #### Sens Table 2 ####
+  tar_target(
+    sens_out_tab2,
+    sens_tab_drought(
+      sens_dat_mrg
+    )
+  )
+  ,
+  ### SENS MODEL ####
+  tar_target(
+    sens_calc_model1,
+    sens_do_model1(
+      sens_dat_imp
+    )
+  )
+  ,
+  #### Sens Table Odds ####
+  tar_target(
+    sens_out_tab3,
+    sens_tab_odds(
+      sens_calc_model1
     )
   )
   )
