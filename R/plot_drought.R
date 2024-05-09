@@ -3,6 +3,7 @@ plot_drought <- function(
 ){
   
 foo <- setDT(calc_drought)
+foo[, zero_to_moderate := as.integer(!(constant_drought_extreme | very_dry_drought_extreme | recent_long_period))]
 
 foo1 <- foo[, c("adm0",
              "adm1",

@@ -168,7 +168,7 @@ sens_do_calc_drought <- function(
   spei[, recent_24_start := date %m-% months(11)] # changed for sensitivity
   spei[, recent_long_period := as.integer(date >= recent_24_start & consecutive_dry >= 6)] # changed for sensitivity
   spei[, constant_and_recent_long := as.integer(constant_drought_extreme & recent_long_period)]
-  spei[, zero_to_moderate := as.integer(!(constant_drought_extreme | very_dry_drought_extreme | recent_long_period))]
+  # spei[, zero_to_moderate := as.integer(!(constant_drought_extreme | very_dry_drought_extreme | recent_long_period))]
   
   
   return(spei)

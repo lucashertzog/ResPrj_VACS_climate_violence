@@ -32,10 +32,11 @@ valid_strata <- psu_counts[n_psu > 1, strata]
 invalid_strata <- psu_counts[n_psu == 1, strata]
 dat_vacs_filtered <- dat_imp[strata %in% valid_strata]
 
-# Correct recoding of data, ensuring 0s are handled if they're supposed to be present
-# dat_vacs_filtered$viol_sex <- ifelse(dat_vacs_filtered$viol_sex == 98, NA, as.integer(dat_vacs_filtered$viol_sex == 1))
-
-dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == 98, NA, as.integer(dat_vacs_filtered$viol_sex.imputed == 1))
+dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == "Not Applicable" , NA, 
+                                             as.integer(dat_vacs_filtered$viol_sex.imputed == "Yes"))
+dat_vacs_filtered$marital.imputed <- as.integer(dat_vacs_filtered$marital.imputed == "Yes")
+dat_vacs_filtered$edu_enrol.imputed <- as.integer(dat_vacs_filtered$edu_enrol.imputed == "Yes")
+dat_vacs_filtered$pvt <- as.integer(dat_vacs_filtered$pvt == "Yes")
 
 design <- survey::svydesign(
   id = ~ cluster,

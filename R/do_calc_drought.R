@@ -168,7 +168,7 @@ summary_extreme_conditions <- spei[, .(
 spei[, recent_24_start := date %m-% months(23)]
 spei[, recent_long_period := as.integer(date >= recent_24_start & consecutive_dry >= 12)]
 spei[, constant_and_recent_long := as.integer(constant_drought_extreme & recent_long_period)]
-spei[, zero_to_moderate := as.integer(!(constant_drought_extreme | very_dry_drought_extreme | recent_long_period))]
+# spei[, zero_to_moderate := as.integer(!(constant_drought_extreme | very_dry_drought_extreme | recent_long_period))]
 
 
 return(spei)
