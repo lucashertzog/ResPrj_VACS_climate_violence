@@ -14,7 +14,8 @@ tar_option_set(
       "lubridate",
       "missForest",
       "ggplot2",
-      "shadowtext"
+      "shadowtext",
+      "rstanarm"
     )
 )
 
@@ -84,6 +85,14 @@ list(
     )
   )
   ,
+  ### BAYESIAN MODEL ####
+  tar_target(
+    calc_model_bayesian,
+    do_model_bayesian(
+      dat_imp
+    )
+  )
+  ,
   ### FIGURES AND TABLES ####
   #### Table 1 ####
   tar_target(
@@ -106,6 +115,14 @@ list(
     out_tab3,
     tab_odds(
       calc_model1
+    )
+  )
+  ,
+  #### Table 3 Bayesian ####
+  tar_target(
+    out_tab3_bayes,
+    tab_bayesian(
+      calc_model_bayesian
     )
   )
   ,

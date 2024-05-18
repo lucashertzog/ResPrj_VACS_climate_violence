@@ -9,7 +9,8 @@ load_packages <- function(do_it = T){
             "lubridate",
             "missForest",
             "ggplot2",
-            "shadowtext"
+            "shadowtext",
+            "rstanarm"
             )
   ipak <- function(pkg){
     new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]

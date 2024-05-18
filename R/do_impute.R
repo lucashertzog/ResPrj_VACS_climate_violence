@@ -4,13 +4,13 @@ do_impute <- function(
 
   dat_mrg <- as.data.frame(dat_mrg)
 
-  vars <- c("age", "marital", "edu_enrol", "viol_sex", "ever_viol_sex")
+  vars <- c("age", "marital", "edu_enrol", "viol_sex", "ever_viol_sex", "pvt", "zero_to_moderate", "very_dry_drought_extreme", "constant_and_recent_long", "recent_long_period")
   
   vars_impute <- dat_mrg[vars]
   
   vars_impute$age <- as.factor(vars_impute$age)
 
-  imp <- missForest(vars_impute, maxiter = 10)
+  imp <- missForest(vars_impute, maxiter = 10, ntree = 100)
   
   imputed_data <- imp$ximp
   
