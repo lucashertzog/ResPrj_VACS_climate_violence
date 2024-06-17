@@ -1,4 +1,4 @@
-#tar_load(dat_mrg)
+#tar_load(dat_imp)
 
 do_model1 <- function(
     dat_imp
@@ -18,8 +18,7 @@ outcome_var <- c(
 pred_var <- c(
   "zero_to_moderate",
   "very_dry_drought_extreme",
-  "constant_and_recent_long"
-  ,
+  "constant_drought_extreme",
   "recent_long_period"
 )
 
@@ -32,11 +31,15 @@ valid_strata <- psu_counts[n_psu > 1, strata]
 invalid_strata <- psu_counts[n_psu == 1, strata]
 dat_vacs_filtered <- dat_imp[strata %in% valid_strata]
 
-dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == "Not Applicable" , NA, 
-                                             as.integer(dat_vacs_filtered$viol_sex.imputed == "Yes"))
-dat_vacs_filtered$marital.imputed <- as.integer(dat_vacs_filtered$marital.imputed == "Yes")
-dat_vacs_filtered$edu_enrol.imputed <- as.integer(dat_vacs_filtered$edu_enrol.imputed == "Yes")
-dat_vacs_filtered$pvt <- as.integer(dat_vacs_filtered$pvt == "Yes")
+# Convert factor to numeric
+dat_vacs_filtered$viol_sex.imputed <- as.numeric(as.character(dat_vacs_filtered$viol_sex.imputed))
+
+# Replace '98' with NA, and keep '0' and '1' as is
+dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == 98, NA, 
+                                             dat_vacs_filtered$viol_sex.imputed)
+# dat_vacs_filtered$marital.imputed <- as.integer(dat_vacs_filtered$marital.imputed == "Yes")
+# dat_vacs_filtered$edu_enrol.imputed <- as.integer(dat_vacs_filtered$edu_enrol.imputed == "Yes")
+# dat_vacs_filtered$pvt.imputed <- as.integer(dat_vacs_filtered$pvt.imputed == "Yes")
 
 design <- survey::svydesign(
   id = ~ cluster,

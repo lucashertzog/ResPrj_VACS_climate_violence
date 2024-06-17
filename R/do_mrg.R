@@ -6,17 +6,16 @@ d <- dat_drought[, c(
   "adm0", "adm1", "adm2",
   "zero_to_moderate",
   "very_dry_drought_extreme",
-  "constant_and_recent_long"
+  "constant_drought_extreme"
   ,
   "recent_long_period"
   )]
 
 for (col in c("zero_to_moderate", 
               "very_dry_drought_extreme",
-              "constant_and_recent_long"
+              "constant_drought_extreme"
               ,
               "recent_long_period"
-
               )) {
   d[[col]] <- as.factor(d[[col]])
 }
@@ -146,13 +145,3 @@ mrg <- v[d, on = "adm_id", nomatch = 0]
 return(mrg)
 
 }
-
-# v_not_in_mrg <- v[!mrg, on = "unique_id"]
-# 
-# col_d <- d[adm0 == "Colombia"]
-# col_d <- col_d[order(adm_id)]
-# unique(col_d$adm_id)
-# head(unique(col_d$adm_id), 100)
-# print(unique(col_d$adm_id)[101:150])
-
-

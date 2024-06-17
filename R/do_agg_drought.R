@@ -1,8 +1,6 @@
 do_agg_drought <- function(
     calc_drought
 ){
-  
-  
   calc_drought[, zero_to_moderate := as.integer(!(
     constant_drought_extreme | very_dry_drought_extreme | constant_and_recent_long | recent_long_period )
     & (value > -1 & value < 0)
@@ -16,11 +14,6 @@ do_agg_drought <- function(
     zero_to_moderate = as.integer(any(zero_to_moderate == 1))
   ), by = .(adm0, adm1, adm2)]
   
-# 
-#   spei[, zero_to_moderate := as.integer(!(
-#     constant_drought_extreme | very_dry_drought_extreme | constant_and_recent_long | recent_long_period )
-#     &(value > -1 & value < 0)
-#     )]
 
 return(spei)
 }

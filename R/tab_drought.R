@@ -5,10 +5,10 @@ tab_drought <- function(
   setDT(dat_mrg)
   
   # Calculate exclusive counts for each drought condition
-  dat_mrg[, zero_to_moderate_exclusive := as.integer(zero_to_moderate == 1 & very_dry_drought_extreme == 0 & constant_and_recent_long == 0 & recent_long_period == 0)]
-  dat_mrg[, very_dry_exclusive := as.integer(very_dry_drought_extreme == 1 & constant_and_recent_long == 0 & recent_long_period == 0)]
-  dat_mrg[, recent_long_exclusive := as.integer(recent_long_period == 1 & constant_and_recent_long == 0)]
-  dat_mrg[, constant_and_recent_exclusive := as.integer(constant_and_recent_long == 1)]  # This is naturally exclusive if defined correctly
+  dat_mrg[, zero_to_moderate_exclusive := as.integer(zero_to_moderate == 1 & very_dry_drought_extreme == 0 & constant_drought_extreme == 0 & recent_long_period == 0)]
+  dat_mrg[, very_dry_exclusive := as.integer(very_dry_drought_extreme == 1 & constant_drought_extreme == 0 & recent_long_period == 0)]
+  dat_mrg[, recent_long_exclusive := as.integer(recent_long_period == 1 & constant_drought_extreme == 0)]
+  dat_mrg[, constant_drought_extreme_exclusive := as.integer(constant_drought_extreme == 1)]  # This is naturally exclusive if defined correctly
   
   sample_size <- nrow(dat_mrg)
   
@@ -22,8 +22,8 @@ tab_drought <- function(
               sum(dat_mrg$very_dry_exclusive, na.rm = TRUE) / sample_size * 100),
       sprintf("%d (%.2f)", sum(dat_mrg$recent_long_exclusive, na.rm = TRUE), 
               sum(dat_mrg$recent_long_exclusive, na.rm = TRUE) / sample_size * 100),
-      sprintf("%d (%.2f)", sum(dat_mrg$constant_and_recent_exclusive, na.rm = TRUE), 
-              sum(dat_mrg$constant_and_recent_exclusive, na.rm = TRUE) / sample_size * 100)
+      sprintf("%d (%.2f)", sum(dat_mrg$constant_drought_extreme_exclusive, na.rm = TRUE), 
+              sum(dat_mrg$constant_drought_extreme_exclusive, na.rm = TRUE) / sample_size * 100)
 
     )
   )

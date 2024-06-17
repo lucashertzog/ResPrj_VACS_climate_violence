@@ -1,13 +1,10 @@
 tab_bayesian <- function(
     calc_model_bayesian
 ){
-  
-
-
 control_var <- c(
   "age.imputed",
   "edu_enrol.imputed",
-  "pvt",
+  "pvt.imputed",
   "marital.imputed"
 )
 
@@ -15,7 +12,8 @@ outcome_var <- "viol_sex.imputed"
 pred_var <- c(
   "zero_to_moderate",
   "very_dry_drought_extreme",
-  "constant_and_recent_long",
+  "constant_drought_extreme"
+  ,
   "recent_long_period"
 )
 extract_model_results <- function(calc_model_bayesian, outcome_var, control_var) {
@@ -76,10 +74,11 @@ combined_results <- extract_model_results(calc_model_bayesian, outcome_var, cont
 
 # Define the rows to keep
 rows_to_keep <- c(
-  "zero_to_moderate.zero_to_moderate1", 
-  "very_dry_drought_extreme.very_dry_drought_extreme1", 
-  "constant_and_recent_long.constant_and_recent_long1", 
-  "recent_long_period.recent_long_period1"
+  "zero_to_moderate.zero_to_moderate1",
+  "very_dry_drought_extreme.very_dry_drought_extreme1",
+  "constant_drought_extreme.constant_drought_extreme1"
+   ,
+   "recent_long_period.recent_long_period1"
 )
 
 # Define the columns to keep and round
@@ -89,7 +88,7 @@ columns_to_keep <- c("Estimate", "StdError", "OddsRatio", "CI_Lower", "CI_Upper"
 filtered_results <- combined_results[rownames(combined_results) %in% rows_to_keep, columns_to_keep]
 
 # Round the specified columns to 2 decimal places
-filtered_results <- round(filtered_results, 2)
+filtered_results <- round(filtered_results, 3)
 
 # Print the filtered and rounded results
 return(filtered_results)
