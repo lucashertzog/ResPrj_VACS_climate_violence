@@ -1,3 +1,4 @@
+# tar_load(dat_mrg)
 tab_drought <- function(
     dat_mrg
 ){

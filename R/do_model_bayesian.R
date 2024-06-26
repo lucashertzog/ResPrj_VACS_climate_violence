@@ -60,7 +60,7 @@ fit_mixed_effects <- function(outcome, predictor, control_vars, data) {
     weights = pseudo_weight,
     prior = normal(0, 1),
     prior_intercept = normal(0, 1),
-    chains = 4, iter = 1000, seed = 12345,  # Increase number of chains and iterations
+    chains = 4, iter = 2000, seed = 12345,
     adapt_delta = 0.99
   )
 }

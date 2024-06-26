@@ -38,10 +38,10 @@ spei[, group_id := ifelse(adm0 %in% c("Côte d'Ivoire", "Lesotho", "Moldova", "M
 # Duration measure: The ‘count-method’ index #
 
 # flag dry months
-spei[, dry_month := ifelse(value < -1, 1, 0)]
+spei[, dry_month := ifelse(value <= -1, 1, 0)]
 
 # Reset condition for ending a drought
-spei[, reset := value > -1]
+spei[, reset := value > -1] # decision ratified by IH, PR, LH on 18/06/2024
 
 # Create a running total of consecutive dry months, reset when not dry
 spei[, consecutive_dry := cumsum(dry_month) - cummax(cumsum(dry_month) * reset),

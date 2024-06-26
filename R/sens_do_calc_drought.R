@@ -37,7 +37,7 @@ sens_do_calc_drought <- function(
   # Duration measure: The ‘count-method’ index #
   
   # flag dry months
-  spei[, dry_month := ifelse(value < -1, 1, 0)]
+  spei[, dry_month := ifelse(value <= -1, 1, 0)]
   
   # Reset condition for ending a drought
   spei[, reset := value > -1]

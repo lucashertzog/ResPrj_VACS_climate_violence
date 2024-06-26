@@ -102,14 +102,14 @@ list(
   )
   ,
   ### FIGURES AND TABLES ####
-  #### Table 1 ####
-  tar_target(
-    out_tab1,
-    tab_desc(
-      dat_vacs
-      )
-    )
-  ,
+  # #### Table 1 ####
+  # tar_target(
+  #   out_tab1,
+  #   tab_desc(
+  #     dat_vacs
+  #     )
+  #   )
+  # ,
   # #### Table 2 ####
   # tar_target(
   #   out_tab2,
@@ -133,14 +133,14 @@ list(
       calc_model_bayesian
     )
   )
-  ,
-  #### Plot 1 ####
-  tar_target(
-    out_plot1,
-    plot_sex_viol(
-      dat_vacs
-    )
-  )
+  # ,
+  # #### Plot 1 ####
+  # tar_target(
+  #   out_plot1,
+  #   plot_sex_viol(
+  #     dat_vacs
+  #   )
+  # )
   # ,
   # #### Plot 2 ####
   # tar_target(
