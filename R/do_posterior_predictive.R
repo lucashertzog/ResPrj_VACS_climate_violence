@@ -1,11 +1,11 @@
-# # Load necessary data and libraries
-# tar_load(calc_model_bayesian)
-# tar_load(dat_imp)
-# library(bayesplot)
-# library(ggplot2)
-# library(data.table)
-# 
-# library(rstantools)
+# Load necessary data and libraries
+tar_load(calc_model_bayesian)
+tar_load(dat_imp)
+library(bayesplot)
+library(ggplot2)
+library(data.table)
+
+library(rstantools)
 
 do_posterior_predictive <- function(
     calc_model_bayesian,
@@ -19,16 +19,18 @@ psu_counts <- dat_imp[, .(n_psu = uniqueN(cluster)), by = strata]
 valid_strata <- psu_counts[n_psu > 1, strata]
 dat_vacs_filtered <- dat_imp[strata %in% valid_strata]
 
-dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == "Not Applicable", NA, as.integer(dat_vacs_filtered$viol_sex.imputed == "Yes"))
-dat_vacs_filtered$marital.imputed <- as.integer(dat_vacs_filtered$marital.imputed == "Yes")
-dat_vacs_filtered$edu_enrol.imputed <- as.integer(dat_vacs_filtered$edu_enrol.imputed == "Yes")
-dat_vacs_filtered$pvt <- as.integer(dat_vacs_filtered$pvt == "Yes")
+# Convert factor to numeric
+dat_vacs_filtered$viol_sex.imputed <- as.numeric(as.character(dat_vacs_filtered$viol_sex.imputed))
+
+# Replace '98' with NA, and keep '0' and '1' as is
+dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == 98, NA, 
+                                             dat_vacs_filtered$viol_sex.imputed)
 
 # Define a list of custom labels for the predictors
 custom_labels <- list(
   zero_to_moderate = "Zero to Moderate Drought",
   very_dry_drought_extreme = "Very Dry",
-  constant_and_recent_long = "Constant",
+  constant_drought_extreme = "Prolonged and extreme",
   recent_long_period = "Recent and Long"
 )
 
@@ -97,5 +99,5 @@ for (predictor in names(calc_model_bayesian)) {
   # Save the plot to a file
   ggsave(filename = paste0("figures_and_tables/diagnostics/ppc_", custom_labels[[predictor]], ".png"), plot = p)
 }
-
+return(p)
 }

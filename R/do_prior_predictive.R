@@ -18,7 +18,7 @@ outcome_var <- c("viol_sex.imputed")
 pred_var <- c(
   "zero_to_moderate",
   "very_dry_drought_extreme",
-  "constant_and_recent_long",
+  "constant_drought_extreme",
   "recent_long_period"
 )
 
@@ -28,10 +28,12 @@ psu_counts <- dat_imp[, .(n_psu = uniqueN(cluster)), by = strata]
 valid_strata <- psu_counts[n_psu > 1, strata]
 dat_vacs_filtered <- dat_imp[strata %in% valid_strata]
 
-dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == "Not Applicable", NA, as.integer(dat_vacs_filtered$viol_sex.imputed == "Yes"))
-dat_vacs_filtered$marital.imputed <- as.integer(dat_vacs_filtered$marital.imputed == "Yes")
-dat_vacs_filtered$edu_enrol.imputed <- as.integer(dat_vacs_filtered$edu_enrol.imputed == "Yes")
-dat_vacs_filtered$pvt <- as.integer(dat_vacs_filtered$pvt == "Yes")
+# Convert factor to numeric
+dat_vacs_filtered$viol_sex.imputed <- as.numeric(as.character(dat_vacs_filtered$viol_sex.imputed))
+
+# Replace '98' with NA, and keep '0' and '1' as is
+dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed == 98, NA, 
+                                             dat_vacs_filtered$viol_sex.imputed)
 
 # Survey design
 design <- svydesign(
@@ -44,12 +46,12 @@ design <- svydesign(
 )
 
 # Calculate pseudo-maximum likelihood weights
-pseudo_weights <- weights(design, type = "pml")
+pseudo_weight <- weights(design, type = "pml")
 # Define custom labels for predictors
 custom_labels <- c(
   "zero_to_moderate" = "Zero to moderate drought",
   "very_dry_drought_extreme" = "Very dry",
-  "constant_and_recent_long" = "Constant",
+  "constant_drought_extreme" = "Prolonged and extreme",
   "recent_long_period" = "Recent and long"
 )
 
