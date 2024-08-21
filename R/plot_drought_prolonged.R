@@ -5,8 +5,8 @@ plot_drought_prolonged <- function(
 ){
 
 # Specify the country name here
-country <- "Namibia"
-adm_name <- "Karasburg"
+country <- "Uganda"
+adm_name <- "Luwero"
   
 # Define svy_dates
 svy_dates <- data.table(
@@ -197,20 +197,33 @@ legend("topleft", legend = legend_items,
        col = legend_colors, pch = 21, pt.bg = legend_bg, 
        pt.lwd = legend_lwd, pt.cex = 2, bty = "o")
 
+abline(v = window_start, col = "black", lty = 2)
+
 # Plot 3: Sum-method drought severity index
 plot(foo_aggregated$date, foo_aggregated$mean_sum_reset, type = "l", xlab = "Date", ylab = "Sum of SPEI values", main = "")
 abline(h = -17.5, col = "black", lty = 2)  # Threshold line
-# Plot points with assigned colors
-points(highlighted_dates, foo_aggregated[date %in% highlighted_dates, mean_sum_reset], 
-       pch = 21, col = highlighted_colors, bg = highlighted_colors, cex = 2, lwd = 1)
 
-# Plot threshold points separately
-points(highlighted_both, foo_aggregated[date %in% highlighted_both, mean_sum_reset],
-       pch = 21, col = "firebrick3", bg = "deepskyblue4", cex = 2, lwd = 2)
+# Plot valid saddlebrown points for in_drought months
+points(saddlebrown_dates, foo_aggregated[date %in% saddlebrown_dates, mean_sum_reset], 
+       pch = 21, col = "saddlebrown", bg = "saddlebrown", cex = 2, lwd = 1)
 
-# Plot the orange2 points
+# Plot points within the 24-month window for deepskyblue4
+points(foo_aggregated$date[
+  foo_aggregated$date >= window_start & foo_aggregated$date <= window_end & foo_aggregated$date %in% highlighted_dates], 
+  foo_aggregated$mean_sum_reset[foo_aggregated$date >= window_start & foo_aggregated$date <= window_end & foo_aggregated$date %in% highlighted_dates], 
+  pch = 21, col = highlighted_colors, bg = highlighted_colors, cex = 2, lwd = 1)
+
+# Plot threshold points separately within the 24-month window
+points(foo_aggregated$date[
+  foo_aggregated$date >= window_start & foo_aggregated$date <= window_end & foo_aggregated$date %in% highlighted_both], 
+  foo_aggregated$mean_sum_reset[foo_aggregated$date >= window_start & foo_aggregated$date <= window_end & foo_aggregated$date %in% highlighted_both],
+  pch = 21, col = "firebrick3", bg = "deepskyblue4", cex = 2, lwd = 2)
+
+# Plot the orange2 points, if applicable, within the window
 points(orange2_dates, foo_aggregated[date %in% orange2_dates, mean_sum_reset], 
        pch = 21, col = "orange2", bg = "orange2", cex = 2, lwd = 2)
+
+abline(v = window_start, col = "black", lty = 2)
 
 # Reset plotting layout
 par(mfrow = c(1, 1))
