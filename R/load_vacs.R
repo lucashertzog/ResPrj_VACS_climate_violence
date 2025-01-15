@@ -33,5 +33,9 @@ load_vacs <- function(
   
   vacs <- subset(vacs, select = -c(viol_ipv, ever_viol_ipv))
   
+  # spei was not calculated San Andres, lets remove participants
+  vacs <- vacs[!adm1 %in% c("San Adres y Providencia")]
+  vacs <- vacs[!adm2 %in% c("San Andrés")]
+  
   return(vacs)
 }

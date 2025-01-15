@@ -1,8 +1,8 @@
 do_mrg <- function(
     dat_vacs,
-    dat_drought
+    agg_drought
 ){
-d <- dat_drought[, c(
+d <- agg_drought[, c(
   "adm0", "adm1", "adm2",
   "zero_to_moderate",
   "very_dry_drought_extreme",

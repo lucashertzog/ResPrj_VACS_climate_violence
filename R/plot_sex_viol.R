@@ -144,8 +144,18 @@ plot_sex_viol <- function(
       size = 5
     )
   
-  ggsave("figures_and_tables/fig1.png", plot = p, width = 10, height = 11, dpi = 300, units = "in")
+  #ggsave("figures_and_tables/fig1.png", plot = p, width = 10, height = 11, dpi = 300, units = "in")
   
+ ggsave(
+   filename = "figures_and_tables/fig1.eps",  # Change the file extension to .eps
+   plot = p,
+   width = 10, 
+   height = 11, 
+   dpi = 300, 
+   units = "in", 
+   device = cairo_ps  # Use the cairo_ps device for EPS output
+ )
+ 
   return(p)
  
 }

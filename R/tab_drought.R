@@ -36,6 +36,30 @@ tab_drought <- function(
 return(drought_exposure)
 }
 
+# # Identify rows not falling into any exclusive category
+# dat_mrg[, residual_category := as.integer(
+#   zero_to_moderate_exclusive == 0 &
+#     very_dry_exclusive == 0 &
+#     recent_long_exclusive == 0 &
+#     constant_drought_extreme_exclusive == 0
+# )]
+# 
+# # Count the number of residual cases
+# num_residual <- sum(dat_mrg$residual_category, na.rm = TRUE)
+# cat("Number of residual cases:", num_residual, "\n")
+# 
+# # Inspect the residual rows
+# residual_rows <- dat_mrg[residual_category == 1]
+# 
+# # View the residual rows
+# head(residual_rows)
+# 
+# missing_counts <- dat_mrg[is.na(zero_to_moderate) | is.na(very_dry_drought_extreme) |
+#                             is.na(recent_long_period) | is.na(constant_drought_extreme)]
+# 
+# cat("Number of rows with missing data:", nrow(missing_counts), "\n")
+
+
 # tar_load(dat_mrg)
 # 
 # # Create a unique combination key for each row based on the four drought conditions

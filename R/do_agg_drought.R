@@ -6,6 +6,9 @@ do_agg_drought <- function(
     & (value > -1 & value < 0)
   )]
   
+  # correct by hand the 3 Colombian districts that we're havings problems
+  calc_drought[adm2 %in% c("El Cerrito", "Cali", "Yumbo"), zero_to_moderate := 1]
+  
   spei <- calc_drought[, .(
     very_dry_drought_extreme = as.integer(any(very_dry_drought_extreme == 1)),
     recent_long_period = as.integer(any(recent_long_period == 1)),
@@ -14,6 +17,6 @@ do_agg_drought <- function(
     zero_to_moderate = as.integer(any(zero_to_moderate == 1))
   ), by = .(adm0, adm1, adm2)]
   
-
-return(spei)
+  
+  return(spei)
 }
