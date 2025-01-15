@@ -161,62 +161,62 @@ list(
   #     )
   #   )
   # )
-  ,
-  #### Sens Calc Drought ####
-  tar_target(
-    sens_calc_drought,
-    sens_do_calc_drought(
-      dat_spei
-    )
-  )
-  ,
-  #### Sens Agg Drought ####
-  tar_target(
-    sens_agg_drought,
-    do_agg_drought(
-      sens_calc_drought
-    )
-  )
-  ,
-  #### Sens Merge ####
-  tar_target(
-    sens_dat_mrg,
-    do_mrg(
-      dat_vacs,
-      sens_agg_drought
-    )
-  )
-  ,
-  #### Sens Imputation ####
-  tar_target(
-    sens_dat_imp,
-    do_impute(
-      sens_dat_mrg
-    )
-  )
   # ,
-  # #### Sens Table 2 ####
+  # #### Sens Calc Drought ####
   # tar_target(
-  #   sens_out_tab2,
-  #   sens_tab_drought(
+  #   sens_calc_drought,
+  #   sens_do_calc_drought(
+  #     dat_spei
+  #   )
+  # )
+  # ,
+  # #### Sens Agg Drought ####
+  # tar_target(
+  #   sens_agg_drought,
+  #   do_agg_drought(
+  #     sens_calc_drought
+  #   )
+  # )
+  # ,
+  # #### Sens Merge ####
+  # tar_target(
+  #   sens_dat_mrg,
+  #   do_mrg(
+  #     dat_vacs,
+  #     sens_agg_drought
+  #   )
+  # )
+  # ,
+  # #### Sens Imputation ####
+  # tar_target(
+  #   sens_dat_imp,
+  #   do_impute(
   #     sens_dat_mrg
   #   )
   # )
-  ,
-  ### SENS MODEL ####
-  tar_target(
-    sens_calc_model_bayesian,
-    do_model_bayesian(
-      sens_dat_imp
-    )
-  )
-  ,
-  #### Sens Table Odds ####
-  tar_target(
-    sens_out_tab3_bayes,
-    tab_bayesian(
-      sens_calc_model_bayesian
-    )
-  )
+  # # ,
+  # # #### Sens Table 2 ####
+  # # tar_target(
+  # #   sens_out_tab2,
+  # #   sens_tab_drought(
+  # #     sens_dat_mrg
+  # #   )
+  # # )
+  # ,
+  # ### SENS MODEL ####
+  # tar_target(
+  #   sens_calc_model_bayesian,
+  #   do_model_bayesian(
+  #     sens_dat_imp
+  #   )
+  # )
+  # ,
+  # #### Sens Table Odds ####
+  # tar_target(
+  #   sens_out_tab3_bayes,
+  #   tab_bayesian(
+  #     sens_calc_model_bayesian
+  #   )
+  # )
   )
 
