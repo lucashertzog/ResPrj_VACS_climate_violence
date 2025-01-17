@@ -16,7 +16,7 @@ control_var <- c(
 
 outcome_var <- c("viol_sex.imputed")
 pred_var <- c(
-  "zero_to_moderate",
+  "slight_to_moderate",
   "very_dry_drought_extreme",
   "constant_drought_extreme",
   "recent_long_period"
@@ -49,7 +49,7 @@ design <- svydesign(
 pseudo_weight <- weights(design, type = "pml")
 # Define custom labels for predictors
 custom_labels <- c(
-  "zero_to_moderate" = "Zero to moderate drought",
+  "slight_to_moderate" = "Slight to moderate drought",
   "very_dry_drought_extreme" = "Very dry",
   "constant_drought_extreme" = "Prolonged and extreme",
   "recent_long_period" = "Recent and long"

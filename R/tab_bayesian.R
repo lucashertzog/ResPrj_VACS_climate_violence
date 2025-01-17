@@ -10,7 +10,7 @@ control_var <- c(
 
 outcome_var <- "viol_sex.imputed"
 pred_var <- c(
-  "zero_to_moderate",
+  "slight_to_moderate",
   "very_dry_drought_extreme",
   "constant_drought_extreme"
   ,
@@ -74,7 +74,7 @@ combined_results <- extract_model_results(calc_model_bayesian, outcome_var, cont
 
 # Define the rows to keep
 rows_to_keep <- c(
-  "zero_to_moderate.zero_to_moderate1",
+  "slight_to_moderate.slight_to_moderate1",
   "very_dry_drought_extreme.very_dry_drought_extreme1",
   "constant_drought_extreme.constant_drought_extreme1"
    ,

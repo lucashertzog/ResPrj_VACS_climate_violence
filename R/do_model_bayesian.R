@@ -11,7 +11,7 @@ control_var <- c(
 
 outcome_var <- c("viol_sex.imputed")
 pred_var <- c(
-  "zero_to_moderate",
+  "slight_to_moderate",
   "very_dry_drought_extreme",
   "constant_drought_extreme"
   ,
@@ -60,7 +60,7 @@ fit_mixed_effects <- function(outcome, predictor, control_vars, data) {
     weights = pseudo_weight,
     prior = normal(0, 1),
     prior_intercept = normal(0, 1),
-    chains = 4, iter = 2000, seed = 12345,
+    chains = 2, iter = 1000, seed = 12345,
     adapt_delta = 0.99
   )
 }

@@ -7,7 +7,7 @@ do_mcmc_chain_convergence <- function(
 
 # Define custom labels for predictors
 custom_labels <- c(
-  "zero_to_moderate" = "Zero to moderate drought",
+  "slight_to_moderate" = "Zero to moderate drought",
   "very_dry_drought_extreme" = "Very dry",
   "constant_drought_extreme" = "Prolonged and extreme",
   "recent_long_period" = "Recent and long"

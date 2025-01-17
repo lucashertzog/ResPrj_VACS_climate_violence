@@ -1,11 +1,11 @@
 # Load necessary data and libraries
-tar_load(calc_model_bayesian)
-tar_load(dat_imp)
-library(bayesplot)
-library(ggplot2)
-library(data.table)
-
-library(rstantools)
+# tar_load(calc_model_bayesian)
+# tar_load(dat_imp)
+# library(bayesplot)
+# library(ggplot2)
+# library(data.table)
+# 
+# library(rstantools)
 
 do_posterior_predictive <- function(
     calc_model_bayesian,
@@ -28,7 +28,7 @@ dat_vacs_filtered$viol_sex.imputed <- ifelse(dat_vacs_filtered$viol_sex.imputed 
 
 # Define a list of custom labels for the predictors
 custom_labels <- list(
-  zero_to_moderate = "Zero to Moderate Drought",
+  slight_to_moderate = "Slight to Moderate Drought",
   very_dry_drought_extreme = "Very Dry",
   constant_drought_extreme = "Prolonged and extreme",
   recent_long_period = "Recent and Long"

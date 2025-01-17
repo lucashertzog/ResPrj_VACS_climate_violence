@@ -5,7 +5,7 @@ do_impute <- function(
   dat_mrg <- as.data.frame(dat_mrg)
 
   vars <- c("age", "marital", "edu_enrol", "viol_sex", "ever_viol_sex", "pvt",
-            "zero_to_moderate",
+            "slight_to_moderate",
             "very_dry_drought_extreme",
             "constant_drought_extreme",
             "recent_long_period")

@@ -4,14 +4,14 @@ do_mrg <- function(
 ){
 d <- agg_drought[, c(
   "adm0", "adm1", "adm2",
-  "zero_to_moderate",
+  "slight_to_moderate",
   "very_dry_drought_extreme",
   "constant_drought_extreme"
   ,
   "recent_long_period"
   )]
 
-for (col in c("zero_to_moderate", 
+for (col in c("slight_to_moderate", 
               "very_dry_drought_extreme",
               "constant_drought_extreme"
               ,
